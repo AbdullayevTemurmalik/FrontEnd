@@ -1,20 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import API from "../api/axios";
 import { Wheat, PlusCircle } from "lucide-react";
 
 const YemCard = () => {
-  const [data, setData] = useState({ nomi: "", miqdori: "", narxi: "" });
+  // Sahifa yuklanganda LocalStorage-dan ma'lumotni olish
+  const [data, setData] = useState(() => {
+    const saved = localStorage.getItem("yem_form");
+    return saved
+      ? JSON.parse(saved)
+      : { nomi: "Arpa", miqdori: "100", narxi: "" };
+  });
+
+  // Har safar ma'lumot o'zgarganda LocalStorage-ga saqlash
+  useEffect(() => {
+    localStorage.setItem("yem_form", JSON.stringify(data));
+  }, [data]);
+
+  const yemTurlari = ["Arpa", "Bug'doy", "Aralashma", "Sechka", "Somon"];
+
+  // Miqdorlar ro'yxati (1 tonnagacha 50 kg qadam bilan)
+  const kgMiqdorlari = [];
+  for (let i = 50; i <= 1000; i += 50) kgMiqdorlari.push(i);
+
+  // Somon uchun voglar
+  const vogMiqdorlari = [];
+  for (let i = 10; i <= 100; i += 10) vogMiqdorlari.push(i);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await API.post("/yem/add", data);
+      // 1000 dan kichik narx yozilsa 000 qo'shish
+      let finalNarxi = Number(data.narxi);
+      if (finalNarxi < 1000) finalNarxi *= 1000;
+
+      const res = await API.post("/yem/add", { ...data, narxi: finalNarxi });
       if (res.data.success) {
-        alert("Yem muvaffaqiyatli saqlandi va Telegramga yuborildi! ✅");
-        setData({ nomi: "", miqdori: "", narxi: "" }); // Formani tozalash
+        alert("Yem muvaffaqiyatli saqlandi! ✅");
+        const resetData = { nomi: "Arpa", miqdori: "100", narxi: "" };
+        setData(resetData);
+        localStorage.removeItem("yem_form");
       }
     } catch (err) {
-      alert("Xatolik! Backend yoniqmi dostim?");
+      alert("Xatolik yuz berdi!");
     }
   };
 
@@ -26,27 +53,51 @@ const YemCard = () => {
           <h3>Yem-xashak kiritish</h3>
         </div>
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Yem nomi (masalan: Arpa)"
+          <label>Yem turi:</label>
+          <select
             value={data.nomi}
-            onChange={(e) => setData({ ...data, nomi: e.target.value })}
-            required
-          />
-          <input
-            type="number"
-            placeholder="Miqdori (kg)"
+            onChange={(e) =>
+              setData({
+                ...data,
+                nomi: e.target.value,
+                miqdori: e.target.value === "Somon" ? "10" : "100",
+              })
+            }
+          >
+            {yemTurlari.map((y) => (
+              <option key={y} value={y}>
+                {y}
+              </option>
+            ))}
+          </select>
+
+          <label>Miqdori ({data.nomi === "Somon" ? "Vog" : "Kg"}):</label>
+          <select
             value={data.miqdori}
             onChange={(e) => setData({ ...data, miqdori: e.target.value })}
-            required
-          />
+          >
+            {data.nomi === "Somon"
+              ? vogMiqdorlari.map((v) => (
+                  <option key={v} value={v}>
+                    {v} vog
+                  </option>
+                ))
+              : kgMiqdorlari.map((k) => (
+                  <option key={k} value={k}>
+                    {k} kg
+                  </option>
+                ))}
+          </select>
+
+          <label>Narxi (so'm):</label>
           <input
             type="number"
-            placeholder="Narxi (so'm)"
+            placeholder="Masalan: 70 yoki 70000"
             value={data.narxi}
             onChange={(e) => setData({ ...data, narxi: e.target.value })}
             required
           />
+
           <button type="submit" className="btn-add">
             <PlusCircle size={18} /> Saqlash
           </button>

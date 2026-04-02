@@ -1,8 +1,10 @@
-/* --- Sening mavjud koding (o'zgarishsiz qoladi) --- */
 .admin-panel {
   padding: 40px 5%;
   background-color: #f8fafc;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .admin-title {
@@ -11,6 +13,7 @@
   margin-bottom: 30px;
   text-align: center;
   font-weight: 800;
+  width: 100%;
 }
 
 .table-section {
@@ -20,12 +23,15 @@
   margin-bottom: 40px;
   overflow: hidden;
   border: 1px solid #e2e8f0;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .table-header {
   background: #f1f5f9;
   padding: 20px;
   border-bottom: 2px solid #e2e8f0;
+  text-align: center;
 }
 
 .table-header h3 {
@@ -35,15 +41,14 @@
 }
 
 .table-container {
-  overflow-x: auto; /* Jadval sig'masa skroll chiqishi uchun */
-  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  overflow-x: auto;
 }
 
 .custom-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  min-width: 600px; /* Jadval juda qisilib ketmasligi uchun */
 }
 
 .custom-table th {
@@ -68,28 +73,24 @@
   background-color: #f8fafc;
 }
 
-.editing-row {
-  background-color: #fffbeb !important;
-}
-
 .actions {
   display: flex;
-  gap: 8px;
+  gap: 10px;
+  justify-content: center;
 }
 
 .actions button {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
-/* Ranglar va Notification kodi shu yerda qoladi... */
 .edit-btn {
   background: #fef3c7;
   color: #d97706;
@@ -107,69 +108,77 @@
   color: #475569;
 }
 
-/* --- MEDIA QUERYLAR (Yangi qism) --- */
-
-/* 1. Planshetlar uchun (max-width: 1024px) */
-@media (max-width: 1024px) {
-  .admin-panel {
-    padding: 30px 3%;
-  }
-
-  .admin-title {
-    font-size: 1.75rem;
-  }
+.actions button:hover {
+  transform: translateY(-2px);
+  filter: brightness(0.95);
 }
 
-/* 2. Telefonlar uchun (max-width: 768px) */
 @media (max-width: 768px) {
   .admin-panel {
-    padding: 20px 10px;
+    padding: 20px 15px;
   }
 
   .admin-title {
     font-size: 1.5rem;
-    margin-bottom: 20px;
   }
 
-  .table-header {
-    padding: 15px;
+  .table-section {
+    max-width: 100%;
   }
 
-  .table-header h3 {
-    font-size: 1.1rem;
-  }
-
-  /* Jadval ichidagi paddingni kamaytiramiz */
+  .custom-table,
+  .custom-table thead,
+  .custom-table tbody,
   .custom-table th,
-  .custom-table td {
-    padding: 12px 10px;
-    font-size: 0.85rem;
+  .custom-table td,
+  .custom-table tr {
+    display: block;
+    width: 100%;
   }
 
-  /* Toast bildirishnomasini telefonga moslash */
-  .mini-notification {
-    top: 10px;
-    right: 10px;
-    left: 10px; /* Butun ekran bo'ylab yoyiladi */
-    min-width: auto;
-    padding: 12px 15px;
-    font-size: 0.9rem;
+  .custom-table thead {
+    display: none;
+  }
+
+  .custom-table tr {
+    padding: 15px 10px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .custom-table td {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 15px;
+    border: none;
+    text-align: right;
+    position: relative;
+  }
+
+  .custom-table td:last-child {
+    justify-content: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed #e2e8f0;
+  }
+
+  .actions {
+    width: 100%;
+    gap: 20px;
+  }
+
+  .actions button {
+    width: 44px;
+    height: 44px;
   }
 }
 
-/* 3. Juda kichik telefonlar uchun (max-width: 480px) */
 @media (max-width: 480px) {
   .admin-title {
-    font-size: 1.25rem;
-  }
-
-  /* Tugmalarni biroz kattaroq qilamizki, barmoqqa qulay bo'lsin */
-  .actions button {
-    width: 32px;
-    height: 32px;
+    font-size: 1.3rem;
   }
 
   .custom-table td {
-    white-space: nowrap; /* Matnlar pastga tushib ketmasligi uchun */
+    font-size: 0.9rem;
   }
 }

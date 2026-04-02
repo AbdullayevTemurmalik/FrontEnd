@@ -8,8 +8,6 @@ const AdminPanel = () => {
   const [moliya, setMoliya] = useState([]);
   const [editId, setEditId] = useState(null);
   const [editData, setEditData] = useState({});
-
-  // Kichik model (Toast) uchun state
   const [toast, setToast] = useState({ show: false, msg: "", type: "success" });
 
   useEffect(() => {
@@ -27,10 +25,9 @@ const AdminPanel = () => {
     }
   };
 
-  // Xabarnomani ko'rsatish funksiyasi
   const triggerToast = (msg, type = "success") => {
     setToast({ show: true, msg, type });
-    setTimeout(() => setToast({ show: false, msg: "", type: "success" }), 5000); // 5 soniya
+    setTimeout(() => setToast({ show: false, msg: "", type: "success" }), 5000);
   };
 
   const deleteItem = async (type, id) => {
@@ -52,7 +49,17 @@ const AdminPanel = () => {
 
   const saveEdit = async (type) => {
     try {
-      await API.put(`/${type}/update/${editId}`, editData);
+      let finalData = { ...editData };
+      let value = type === "yem" ? finalData.narxi : finalData.summa;
+
+      // Agar son 1000 ga qoldiqsiz bo'linmasa, demak oxirida 000 yo'q
+      // Shunda uni 1000 ga ko'paytiramiz
+      if (Number(value) > 0 && Number(value) % 1000 !== 0) {
+        if (type === "yem") finalData.narxi = Number(value) * 1000;
+        if (type === "moliya") finalData.summa = Number(value) * 1000;
+      }
+
+      await API.put(`/${type}/update/${editId}`, finalData);
       triggerToast("Ma'lumot muvaffaqiyatli yangilandi! ✅", "success");
       setEditId(null);
       fetchData();
@@ -60,11 +67,9 @@ const AdminPanel = () => {
       triggerToast("Yangilashda xatolik yuz berdi!", "error");
     }
   };
-
   return (
     <div className="container">
       <div className="admin-panel">
-        {/* --- O'NG TEPADAGI KICHIK MODEL (TOAST) --- */}
         {toast.show && (
           <div className={`mini-notification ${toast.type}`}>
             {toast.type === "success" ? (
