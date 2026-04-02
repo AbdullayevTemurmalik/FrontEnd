@@ -85,6 +85,36 @@
   background-color: #c0392b;
   transform: translateY(-2px); /* Bosganda biroz ko'tariladi */
 }
+/* Logotip linki uchun maxsus stil */
+.navbar a {
+  text-decoration: none; /* Hamma linklardagi tagidagi chiziqni olib tashlaydi */
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2ecc71;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+
+/* Logotip ustiga borganda rangini biroz o'zgartirish (ixtiyoriy) */
+.logo:hover {
+  color: #27ae60;
+}
+
+/* Nav-links ichidagi linklar uchun ham chiziqni olib tashlaymiz */
+.nav-links a {
+  text-decoration: none;
+  color: #ecf0f1;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: #2ecc71;
+}
 
 /* ---------------------------------------------------
    RESPONSIVE (MOSLASHUVCHANLIK) QISMI

@@ -7,10 +7,9 @@ const Navbar = ({ isAuth, setIsAuth }) => {
   return (
     <div className="container">
       <nav className="navbar">
-        <a href="/">
-          {" "}
-          <div className="logo">🐑 Qo'ychilik Pro</div>
-        </a>
+        <Link to="/">
+          <div className="logo">HisobKutob.UZ</div>
+        </Link>
         <div className="nav-links">
           <Link to="/">Home</Link>
           {isAuth ? (
