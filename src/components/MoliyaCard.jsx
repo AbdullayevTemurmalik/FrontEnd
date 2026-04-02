@@ -19,37 +19,39 @@ const MoliyaCard = () => {
   };
 
   return (
-    <div className="card moliya-card">
-      <div className="card-header">
-        <Wallet color="#3498db" size={24} />
-        <h3>Moliya (Kirim/Chiqim)</h3>
+    <div className="container">
+      <div className="card moliya-card">
+        <div className="card-header">
+          <Wallet color="#3498db" size={24} />
+          <h3>Moliya (Kirim/Chiqim)</h3>
+        </div>
+        <form onSubmit={handleMoliya}>
+          <select
+            value={moliya.turi}
+            onChange={(e) => setMoliya({ ...moliya, turi: e.target.value })}
+          >
+            <option value="kirim">Kirim (Pul keldi)</option>
+            <option value="chiqim">Chiqim (Xarajat)</option>
+          </select>
+          <input
+            type="number"
+            placeholder="Summa (so'm)"
+            value={moliya.summa}
+            onChange={(e) => setMoliya({ ...moliya, summa: e.target.value })}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Izoh (masalan: Qo'y sotildi)"
+            value={moliya.izoh}
+            onChange={(e) => setMoliya({ ...moliya, izoh: e.target.value })}
+            required
+          />
+          <button type="submit" className="btn-save">
+            <Save size={18} /> Tasdiqlash
+          </button>
+        </form>
       </div>
-      <form onSubmit={handleMoliya}>
-        <select
-          value={moliya.turi}
-          onChange={(e) => setMoliya({ ...moliya, turi: e.target.value })}
-        >
-          <option value="kirim">Kirim (Pul keldi)</option>
-          <option value="chiqim">Chiqim (Xarajat)</option>
-        </select>
-        <input
-          type="number"
-          placeholder="Summa (so'm)"
-          value={moliya.summa}
-          onChange={(e) => setMoliya({ ...moliya, summa: e.target.value })}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Izoh (masalan: Qo'y sotildi)"
-          value={moliya.izoh}
-          onChange={(e) => setMoliya({ ...moliya, izoh: e.target.value })}
-          required
-        />
-        <button type="submit" className="btn-save">
-          <Save size={18} /> Tasdiqlash
-        </button>
-      </form>
     </div>
   );
 };

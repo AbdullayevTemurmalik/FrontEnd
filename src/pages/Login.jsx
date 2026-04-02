@@ -28,48 +28,50 @@ const Login = ({ setAuth }) => {
   };
 
   return (
-    <div className="login-page">
-      <form className="login-card" onSubmit={handleLogin}>
-        <div className="login-icon">
-          <UserLock size={40} color="#fff" />
-        </div>
-        <h2>Admin Kirish</h2>
+    <div className="container">
+      <div className="login-page">
+        <form className="login-card" onSubmit={handleLogin}>
+          <div className="login-icon">
+            <UserLock size={40} color="#fff" />
+          </div>
+          <h2>Admin Kirish</h2>
 
-        <input
-          type="text"
-          placeholder="Username"
-          autoComplete="username"
-          value={credentials.username}
-          onChange={(e) =>
-            setCredentials({ ...credentials, username: e.target.value })
-          }
-          required
-        />
-
-        <div className="password-wrapper">
           <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Password"
-            autoComplete="current-password"
-            value={credentials.password}
+            type="text"
+            placeholder="Username"
+            autoComplete="username"
+            value={credentials.username}
             onChange={(e) =>
-              setCredentials({ ...credentials, password: e.target.value })
+              setCredentials({ ...credentials, username: e.target.value })
             }
             required
           />
-          <button
-            type="button"
-            className="eye-btn"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-          </button>
-        </div>
 
-        <button type="submit" className="submit-btn">
-          Tizimga kirish
-        </button>
-      </form>
+          <div className="password-wrapper">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              autoComplete="current-password"
+              value={credentials.password}
+              onChange={(e) =>
+                setCredentials({ ...credentials, password: e.target.value })
+              }
+              required
+            />
+            <button
+              type="button"
+              className="eye-btn"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
+
+          <button type="submit" className="submit-btn">
+            Tizimga kirish
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

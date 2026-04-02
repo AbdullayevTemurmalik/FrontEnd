@@ -1,6 +1,9 @@
+/* --- 1. Asosiy Sahifa Sozlamalari --- */
 .home-page {
   padding: 40px 10%;
   text-align: center;
+  min-height: 100vh;
+  background-color: #f4f7f6; /* Yengil fon rangi */
 }
 
 .welcome-banner {
@@ -11,20 +14,27 @@
   font-size: 36px;
   color: #2c3e50;
   margin-bottom: 10px;
+  font-weight: 700;
 }
 
+/* --- 2. Grid Tizimi (Desktop uchun 2 talik) --- */
 .cards-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr); /* 2 ta teng ustun */
   gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto; /* Markazda turishi uchun */
 }
 
+/* --- 3. Karta Stili --- */
 .card {
   background: white;
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .card:hover {
@@ -36,33 +46,45 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   margin-bottom: 25px;
+  color: #34495e;
 }
 
+/* --- 4. Form Elementlari --- */
 form input,
 form select {
   width: 100%;
-  padding: 12px;
+  padding: 12px 15px;
   margin-bottom: 15px;
   border: 1px solid #ddd;
   border-radius: 8px;
   outline: none;
+  font-size: 15px;
+  transition: border-color 0.3s;
 }
 
+form input:focus,
+form select:focus {
+  border-color: #3498db;
+}
+
+/* --- 5. Tugmalar --- */
 .btn-add,
 .btn-save {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   border: none;
   border-radius: 8px;
   color: white;
   font-weight: bold;
+  font-size: 16px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+  transition: opacity 0.3s;
 }
 
 .btn-add {
@@ -70,4 +92,57 @@ form select {
 }
 .btn-save {
   background-color: #3498db;
+}
+
+.btn-add:hover,
+.btn-save:hover {
+  opacity: 0.9;
+}
+
+/* ---------------------------------------------------
+   RESPONSIVE (MOSLASHUVCHANLIK)
+--------------------------------------------------- */
+
+/* --- Planshetlar uchun (max-width: 1024px) --- */
+@media (max-width: 1024px) {
+  .home-page {
+    padding: 40px 5%; /* Chetki masofani kamaytiramiz */
+  }
+
+  .cards-grid {
+    gap: 20px;
+  }
+}
+
+/* --- Telefonlar uchun (max-width: 768px) --- */
+@media (max-width: 768px) {
+  .welcome-banner h1 {
+    font-size: 28px; /* Sarlavha biroz kichrayadi */
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr; /* 2 ta ustunni 1 taga aylantiramiz */
+    gap: 25px;
+  }
+
+  .home-page {
+    padding: 30px 15px;
+  }
+
+  .card {
+    padding: 20px; /* Ichki masofani kichraytiramiz */
+  }
+}
+
+/* --- Juda kichik telefonlar uchun (max-width: 480px) --- */
+@media (max-width: 480px) {
+  .welcome-banner h1 {
+    font-size: 24px;
+  }
+
+  .btn-add,
+  .btn-save {
+    font-size: 14px;
+    padding: 12px;
+  }
 }

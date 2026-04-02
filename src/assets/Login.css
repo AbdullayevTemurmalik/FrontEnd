@@ -1,23 +1,28 @@
-/* Sahifa foni */
+/* --- 1. Umumiy Reset va Fon --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif; /* Zamonaviy shrift */
+}
+
 .login-page {
-  height: 100vh;
+  min-height: 100vh; /* height o'rniga min-height ishlatgan ma'qul */
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(
-    135deg,
-    #1e3c72 0%,
-    #2a5298 100%
-  ); /* Chiroyli ko'k gradyent */
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  padding: 20px; /* Telefonlarda ekran chetiga yopishib qolmasligi uchun */
 }
 
-/* Login kartasi */
+/* --- 2. Login kartasi (Desktop) --- */
 .login-card {
   background: rgba(255, 255, 255, 0.95);
   padding: 40px;
   border-radius: 24px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-  width: 380px;
+  width: 100%;
+  max-width: 400px; /* Maksimal kenglik cheklovi */
   text-align: center;
   transition: transform 0.3s ease;
 }
@@ -26,7 +31,7 @@
   transform: translateY(-5px);
 }
 
-/* Icon doirasi */
+/* Icon va Sarlavha */
 .login-icon {
   background: #2c3e50;
   width: 75px;
@@ -44,10 +49,9 @@
   margin-bottom: 30px;
   font-size: 26px;
   font-weight: 700;
-  letter-spacing: 1px;
 }
 
-/* Inputlar uchun umumiy stil */
+/* --- 3. Inputlar va Tugmalar --- */
 .login-card input {
   width: 100%;
   padding: 14px 16px;
@@ -57,7 +61,6 @@
   font-size: 16px;
   transition: all 0.3s ease;
   background: #f8fafc;
-  box-sizing: border-box; /* Padding hisobiga kengayib ketmasligi uchun */
 }
 
 .login-card input:focus {
@@ -67,7 +70,6 @@
   box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1);
 }
 
-/* Parol wrapper */
 .password-wrapper {
   position: relative;
   width: 100%;
@@ -75,34 +77,22 @@
 }
 
 .password-wrapper input {
-  margin-bottom: 0; /* Wrapper ichidagi inputda margin kerakmas */
+  margin-bottom: 0;
   padding-right: 50px;
 }
 
-/* KO'Z TUGMASI (Mana shu joyi eng muhimi) */
 .eye-btn {
   position: absolute;
   right: 15px;
   top: 50%;
   transform: translateY(-50%);
-  background: transparent !important; /* Fonini olib tashlaymiz */
+  background: transparent !important;
   border: none !important;
-  width: auto !important; /* Kengligini avto qilamiz */
-  padding: 0 !important;
   cursor: pointer;
   color: #94a3b8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color 0.2s;
   z-index: 10;
 }
 
-.eye-btn:hover {
-  color: #3498db !important;
-}
-
-/* ASOSIY KIRISH TUGMASI */
 .submit-btn {
   width: 100%;
   padding: 14px;
@@ -113,17 +103,70 @@
   cursor: pointer;
   font-weight: 700;
   font-size: 16px;
-  margin-top: 10px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
 }
 
 .submit-btn:hover {
   background: #1a252f;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   transform: translateY(-1px);
 }
 
-.submit-btn:active {
-  transform: translateY(0);
+/* ---------------------------------------------------
+   RESPONSIVE QISMI (O'lchamlarga moslash)
+--------------------------------------------------- */
+
+/* --- Planshetlar uchun (max-width: 768px) --- */
+@media (max-width: 768px) {
+  .login-card {
+    padding: 35px 30px;
+    max-width: 360px;
+  }
+
+  .login-card h2 {
+    font-size: 24px;
+    margin-bottom: 25px;
+  }
+}
+
+/* --- Telefonlar uchun (max-width: 480px) --- */
+@media (max-width: 480px) {
+  .login-page {
+    padding: 15px;
+    align-items: center; /* Kichik ekranda ham o'rtada turishi uchun */
+  }
+
+  .login-card {
+    padding: 30px 20px;
+    border-radius: 20px; /* Burchaklarni biroz yumshatamiz */
+  }
+
+  .login-icon {
+    width: 65px;
+    height: 65px;
+  }
+
+  .login-card h2 {
+    font-size: 22px;
+  }
+
+  .login-card input,
+  .submit-btn {
+    padding: 12px; /* Inputlarni biroz kichraytiramiz */
+    font-size: 15px;
+  }
+
+  /* Ko'zcha tugmasini ham kichikroq ekranda to'g'irlaymiz */
+  .eye-btn {
+    right: 12px;
+  }
+}
+
+/* --- Juda kichik ekranlar (bo'yi kichik telefonlar) uchun --- */
+@media (max-height: 600px) {
+  .login-page {
+    align-items: flex-start; /* Bo'yi kichik ekranda tepadan boshlanishi uchun */
+    padding-top: 20px;
+    padding-bottom: 20px;
+    overflow-y: auto; /* Pastki qismi ko'rinmasa skroll bo'lishi uchun */
+  }
 }

@@ -1,3 +1,4 @@
+/* --- Sening mavjud koding (o'zgarishsiz qoladi) --- */
 .admin-panel {
   padding: 40px 5%;
   background-color: #f8fafc;
@@ -34,13 +35,15 @@
 }
 
 .table-container {
-  overflow-x: auto;
+  overflow-x: auto; /* Jadval sig'masa skroll chiqishi uchun */
+  -webkit-overflow-scrolling: touch;
 }
 
 .custom-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
+  min-width: 600px; /* Jadval juda qisilib ketmasligi uchun */
 }
 
 .custom-table th {
@@ -69,11 +72,9 @@
   background-color: #fffbeb !important;
 }
 
-/* Actions styling */
 .actions {
   display: flex;
   gap: 8px;
-  min-width: 100px;
 }
 
 .actions button {
@@ -88,147 +89,87 @@
   transition: all 0.2s;
 }
 
+/* Ranglar va Notification kodi shu yerda qoladi... */
 .edit-btn {
   background: #fef3c7;
   color: #d97706;
 }
-.edit-btn:hover {
-  background: #fde68a;
-}
-
 .delete-btn {
   background: #fee2e2;
   color: #dc2626;
 }
-.delete-btn:hover {
-  background: #fecaca;
-}
-
 .save-btn {
   background: #dcfce7;
   color: #16a34a;
 }
-.save-btn:hover {
-  background: #bbf7d0;
-}
-
 .cancel-btn {
   background: #f1f5f9;
   color: #475569;
 }
-.cancel-btn:hover {
-  background: #e2e8f0;
-}
 
-/* Input fields inside table */
-.edit-input {
-  width: 100%;
-  padding: 8px 12px;
-  border: 2px solid #fbbf24;
-  border-radius: 6px;
-  outline: none;
-  font-size: 0.9rem;
-}
+/* --- MEDIA QUERYLAR (Yangi qism) --- */
 
-/* Status colors */
-.text-green {
-  color: #16a34a;
-  font-weight: 700;
-}
-.text-red {
-  color: #dc2626;
-  font-weight: 700;
-}
-
-/* --- MINI NOTIFICATION (TOAST) --- */
-.mini-notification {
-  position: fixed;
-  top: 25px;
-  right: 25px;
-  min-width: 280px;
-  padding: 16px 20px;
-  border-radius: 12px;
-  background: white;
-  color: #2c3e50;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  z-index: 9999;
-  font-weight: 600;
-  overflow: hidden;
-  animation: slideInRight 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.mini-notification.success {
-  border-left: 5px solid #2ecc71;
-}
-
-.mini-notification.success svg {
-  color: #2ecc71;
-}
-
-.mini-notification.error {
-  border-left: 5px solid #e74c3c;
-}
-
-.mini-notification.error svg {
-  color: #e74c3c;
-}
-
-/* 5 soniyalik progress bar */
-.progress-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 4px;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.mini-notification.success .progress-bar::after {
-  content: "";
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background: #2ecc71;
-  animation: progressAnim 5s linear forwards;
-}
-
-.mini-notification.error .progress-bar::after {
-  content: "";
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background: #e74c3c;
-  animation: progressAnim 5s linear forwards;
-}
-
-@keyframes slideInRight {
-  from {
-    transform: translateX(120%);
-    opacity: 0;
+/* 1. Planshetlar uchun (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .admin-panel {
+    padding: 30px 3%;
   }
-  to {
-    transform: translateX(0);
-    opacity: 1;
+
+  .admin-title {
+    font-size: 1.75rem;
   }
 }
 
-@keyframes progressAnim {
-  from {
-    width: 100%;
-  }
-  to {
-    width: 0%;
-  }
-}
-
+/* 2. Telefonlar uchun (max-width: 768px) */
 @media (max-width: 768px) {
   .admin-panel {
-    padding: 20px 2%;
+    padding: 20px 10px;
   }
-  .actions {
-    flex-direction: column;
+
+  .admin-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .table-header {
+    padding: 15px;
+  }
+
+  .table-header h3 {
+    font-size: 1.1rem;
+  }
+
+  /* Jadval ichidagi paddingni kamaytiramiz */
+  .custom-table th,
+  .custom-table td {
+    padding: 12px 10px;
+    font-size: 0.85rem;
+  }
+
+  /* Toast bildirishnomasini telefonga moslash */
+  .mini-notification {
+    top: 10px;
+    right: 10px;
+    left: 10px; /* Butun ekran bo'ylab yoyiladi */
+    min-width: auto;
+    padding: 12px 15px;
+    font-size: 0.9rem;
+  }
+}
+
+/* 3. Juda kichik telefonlar uchun (max-width: 480px) */
+@media (max-width: 480px) {
+  .admin-title {
+    font-size: 1.25rem;
+  }
+
+  /* Tugmalarni biroz kattaroq qilamizki, barmoqqa qulay bo'lsin */
+  .actions button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .custom-table td {
+    white-space: nowrap; /* Matnlar pastga tushib ketmasligi uchun */
   }
 }

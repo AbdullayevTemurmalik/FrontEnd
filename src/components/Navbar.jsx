@@ -5,29 +5,31 @@ import "../assets/Navbar.css";
 
 const Navbar = ({ isAuth, setIsAuth }) => {
   return (
-    <nav className="navbar">
-      <a href="/">
-        {" "}
-        <div className="logo">🐑 Qo'ychilik Pro</div>
-      </a>
-      <div className="nav-links">
-        <Link to="/">Home</Link>
-        {isAuth ? (
-          <>
-            <Link to="/admin" className="admin-btn">
-              <LayoutDashboard size={18} /> Admin Panel
+    <div className="container">
+      <nav className="navbar">
+        <a href="/">
+          {" "}
+          <div className="logo">🐑 Qo'ychilik Pro</div>
+        </a>
+        <div className="nav-links">
+          <Link to="/">Home</Link>
+          {isAuth ? (
+            <>
+              <Link to="/admin" className="admin-btn">
+                <LayoutDashboard size={18} /> Admin Panel
+              </Link>
+              <button onClick={() => setIsAuth(false)} className="logout-btn">
+                <LogOut size={18} /> Chiqish
+              </button>
+            </>
+          ) : (
+            <Link to="/login" className="login-btn">
+              <LogIn size={18} /> Admin Panel (Kirish)
             </Link>
-            <button onClick={() => setIsAuth(false)} className="logout-btn">
-              <LogOut size={18} /> Chiqish
-            </button>
-          </>
-        ) : (
-          <Link to="/login" className="login-btn">
-            <LogIn size={18} /> Admin Panel (Kirish)
-          </Link>
-        )}
-      </div>
-    </nav>
+          )}
+        </div>
+      </nav>
+    </div>
   );
 };
 
