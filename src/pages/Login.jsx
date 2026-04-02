@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { UserLock, Eye, EyeOff } from "lucide-react"; // Ikonkalarni qo'shdik
+import API from "../api/axios"; // <--- Buni qo'shdik (o'zingni axios configing)
+import { UserLock, Eye, EyeOff } from "lucide-react";
 import "../assets/Login.css";
 
 const Login = ({ setAuth }) => {
@@ -8,21 +8,22 @@ const Login = ({ setAuth }) => {
     username: "",
     password: "",
   });
-  const [showPassword, setShowPassword] = useState(false); // Parolni ko'rsatish holati
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/admin/login",
-        credentials,
-      );
+      // ESKI: axios.post("http://localhost:5000/api/admin/login", credentials);
+      // YANGI: API orqali yuboramiz, baseURL avtomat Render URL-ni qo'yadi
+      const res = await API.post("/admin/login", credentials);
+
       if (res.data.success) {
         setAuth(true);
-        localStorage.setItem("isAdminAuth", "true"); // Brauzer xotirasiga muhrlaymiz
+        localStorage.setItem("isAdminAuth", "true");
       }
     } catch (err) {
-      alert("Login yoki Parol xato!");
+      // Xatoni aniqroq ko'rsatish uchun alertni o'zgartirdik
+      alert(err.response?.data?.message || "Login yoki Parol xato! ❌");
     }
   };
 
@@ -38,6 +39,7 @@ const Login = ({ setAuth }) => {
           type="text"
           placeholder="Username"
           autoComplete="username"
+          value={credentials.username}
           onChange={(e) =>
             setCredentials({ ...credentials, username: e.target.value })
           }
@@ -46,9 +48,10 @@ const Login = ({ setAuth }) => {
 
         <div className="password-wrapper">
           <input
-            type={showPassword ? "text" : "password"} // Holatga qarab type o'zgaradi
+            type={showPassword ? "text" : "password"}
             placeholder="Password"
             autoComplete="current-password"
+            value={credentials.password}
             onChange={(e) =>
               setCredentials({ ...credentials, password: e.target.value })
             }
@@ -57,7 +60,7 @@ const Login = ({ setAuth }) => {
           <button
             type="button"
             className="eye-btn"
-            onClick={() => setShowPassword(!showPassword)} // Ko'z ikonkasini bosganda almashadi
+            onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
