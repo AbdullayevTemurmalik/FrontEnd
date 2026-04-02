@@ -1,0 +1,234 @@
+.admin-panel {
+  padding: 40px 5%;
+  background-color: #f8fafc;
+  min-height: 100vh;
+}
+
+.admin-title {
+  color: #1e293b;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 800;
+}
+
+.table-section {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin-bottom: 40px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.table-header {
+  background: #f1f5f9;
+  padding: 20px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.table-header h3 {
+  margin: 0;
+  color: #334155;
+  font-size: 1.25rem;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.custom-table th {
+  padding: 15px 20px;
+  background: #fff;
+  color: #64748b;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+.custom-table td {
+  padding: 15px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+  font-size: 0.95rem;
+  vertical-align: middle;
+}
+
+.custom-table tr:hover {
+  background-color: #f8fafc;
+}
+
+.editing-row {
+  background-color: #fffbeb !important;
+}
+
+/* Actions styling */
+.actions {
+  display: flex;
+  gap: 8px;
+  min-width: 100px;
+}
+
+.actions button {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.edit-btn {
+  background: #fef3c7;
+  color: #d97706;
+}
+.edit-btn:hover {
+  background: #fde68a;
+}
+
+.delete-btn {
+  background: #fee2e2;
+  color: #dc2626;
+}
+.delete-btn:hover {
+  background: #fecaca;
+}
+
+.save-btn {
+  background: #dcfce7;
+  color: #16a34a;
+}
+.save-btn:hover {
+  background: #bbf7d0;
+}
+
+.cancel-btn {
+  background: #f1f5f9;
+  color: #475569;
+}
+.cancel-btn:hover {
+  background: #e2e8f0;
+}
+
+/* Input fields inside table */
+.edit-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 2px solid #fbbf24;
+  border-radius: 6px;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+/* Status colors */
+.text-green {
+  color: #16a34a;
+  font-weight: 700;
+}
+.text-red {
+  color: #dc2626;
+  font-weight: 700;
+}
+
+/* --- MINI NOTIFICATION (TOAST) --- */
+.mini-notification {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  min-width: 280px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  background: white;
+  color: #2c3e50;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  font-weight: 600;
+  overflow: hidden;
+  animation: slideInRight 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.mini-notification.success {
+  border-left: 5px solid #2ecc71;
+}
+
+.mini-notification.success svg {
+  color: #2ecc71;
+}
+
+.mini-notification.error {
+  border-left: 5px solid #e74c3c;
+}
+
+.mini-notification.error svg {
+  color: #e74c3c;
+}
+
+/* 5 soniyalik progress bar */
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.mini-notification.success .progress-bar::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: #2ecc71;
+  animation: progressAnim 5s linear forwards;
+}
+
+.mini-notification.error .progress-bar::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: #e74c3c;
+  animation: progressAnim 5s linear forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes progressAnim {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-panel {
+    padding: 20px 2%;
+  }
+  .actions {
+    flex-direction: column;
+  }
+}
